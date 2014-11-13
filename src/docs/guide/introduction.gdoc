@@ -1,0 +1,7 @@
+Automatically run Groovy based migration scripts.
+
+Grails console scripts are powerful tools for performing data migrations, since they have access to business logic and domain classes.
+Running these scripts manually means that sometimes these scripts do not get run on all environments and there is no visibility into what
+scripts have been run or need to be run.
+
+This plugin was created to automate the script execution process and provide visibility and consistency.

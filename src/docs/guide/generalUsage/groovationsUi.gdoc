@@ -1,0 +1,5 @@
+The plugin adds the @GroovationsController@ to your application.
+
+The @index@ action of this controller renders a simple page with the following features:
+    * A table that lists all pending migrations in the order that they will be executed. Just above this table is an 'Execute' link that will cause all pending migrations to be executed asynchronously.
+    * A paged table that lists all previously executed migrations sorted by most recent execution date.

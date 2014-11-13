@@ -1,0 +1,11 @@
+A persistent data store is required for tracking what scripts have been executed and if a script execution job is running.
+
+The plugin comes with built in support for persisting to a [MongoDB|http://www.mongodb.org] database.
+
+If you want to use a different persistence method, you could implement the [ScriptExecutionRepository|api:com.commercehub.grails.groovations.ScriptExecutionRepository]
+and [ScriptExecutionJobRepository|api:com.commercehub.grails.groovations.ScriptExecutionJobRepository] interfaces and create
+overriding spring beans to make the plugin use your implementation classes.
+
+{warning}
+Though this method should work in theory, it has not yet been tested.
+{warning}

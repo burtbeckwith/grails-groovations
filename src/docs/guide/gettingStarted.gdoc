@@ -1,0 +1,14 @@
+h4. Installation
+
+Install the plugin by adding the following to your @BuildConfig.groovy@:
+
+{code}
+plugins {
+    ...
+    compile ':groovations:${groovationsVersion}'
+    ...
+}
+{code}
+
+Create a new directory called @'scripts/groovy-migrations'@ if it does not already exist.
+This directory is where the plugin will look to find Groovy scripts.

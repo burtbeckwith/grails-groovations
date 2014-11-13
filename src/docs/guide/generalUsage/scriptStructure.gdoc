@@ -1,0 +1,10 @@
+There is no required structure for individual migration scripts; any executable Groovy script will work!
+Each script has access to all the classes that can be loaded by the @grailsApplication@ classloader.
+The following variables are available for use in migration scripts:
+* @ctx@ - The main Spring [ApplicationContext|http://docs.spring.io/spring/docs/3.0.x/javadoc-api/org/springframework/context/ApplicationContext.html]
+* @grailsApplication@ - The [GrailsApplication|http://grails.org/doc/latest/api/org/codehaus/groovy/grails/commons/GrailsApplication.html] instance
+* @config@ - The Grails configuration
+* @log@ - The @groovations@ [Slf4j|http://www.slf4j.org/api/org/slf4j/Logger.html] Logger
+
+Ideally, migration scripts should be safely re-runnable.
+Designing your scripts for re-runnability makes it easier to deal with unexpected errors during execution.

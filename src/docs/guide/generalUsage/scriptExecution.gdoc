@@ -1,0 +1,9 @@
+The @resourcePath@ of a script is the file path of the script resource, relative to the grails project directory.
+The execution order of the scripts is determined using the @resourcePaths@ of the the scripts.
+Scripts are sorted lexicographically by @resourcePath@ and executed in the sorted order.
+Users of the plugin are free to decide upon a directory and filename convention to obtain the desired execution order.
+
+Upon request, the plugin asynchronously executes all pending migration scripts in order.
+
+Should an exception occur during the execution of a migration script, the plugin will *not* execute the remaining pending migrations.
+The plugin catches exceptions from migration scripts and logs them at the @error@ level.

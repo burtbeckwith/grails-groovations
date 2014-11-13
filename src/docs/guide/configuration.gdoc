@@ -1,0 +1,13 @@
+h4. Configure the Root Directory for Migration Scripts:
+    The root directory for migration scripts can be customized by setting the @grails.groovations.migrationsRootDir@
+    config property.
+    The default value for this property is @'scripts/groovy-migrations'@
+
+h4. Configure Logging:
+    The following loggers can be configured:
+    * @com.commercehub.grails.groovations@
+        ** Setting the log level to @error@ will log exceptions that occur during the execution of your migration scripts.
+        ** Setting the log level to @warn@ will log any attempts to execute migration scripts concurrently.
+        ** Setting the log level to @info@ will log when scripts begin execution and when they complete execution.
+    * @groovations@
+        ** Set the log level for logging you do in your migration scripts.
