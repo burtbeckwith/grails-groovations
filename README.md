@@ -1,1 +1,1 @@
-h1. Groovations - Groovy Migrations Plugin
+Groovations - Groovy Migrations Grails Plugin
