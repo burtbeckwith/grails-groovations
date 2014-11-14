@@ -17,22 +17,18 @@ class GroovationsGrailsPlugin {
             'scripts/groovy-migrations/**'
     ]
 
-    def title = 'Groovations - Groovy Migrations Plugin'
+    def title = 'Groovations - The Groovy Migrations Plugin'
     def author = 'David A. Purcell'
     def authorEmail = 'dpurcell@commercehub.com'
     def developers = [
             [name: 'David A. Purcell', email: 'dpurcell@commercehub.com'],
     ]
 
-    // TODO
     def description = 'Automatically run Groovy based migration scripts.'
     def organization = [name: 'CommerceHub', url: 'http://www.commercehub.com/']
-    // TODO
-    def documentation = ''
-    // TODO
-    def issueManagement = [system: 'GitHub', url: '']
-    // TODO
-    def scm = [url: '']
+    def documentation = 'http://commercehub-oss.github.io/grails-groovations/'
+    def issueManagement = [system: 'GitHub', url: 'https://github.com/commercehub-oss/grails-groovations/issues']
+    def scm = [url: 'https://github.com/commercehub-oss/grails-groovations']
     def license = 'APACHE'
 
     def doWithSpring = {
