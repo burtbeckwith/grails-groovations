@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <title>3 General Usage 0.1.1</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8"/>
+    <link rel="stylesheet" href="../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8"/>
+    <script type="text/javascript">
+function addJsClass() {
+    var classes = document.body.className.split(" ");
+    classes.push("js");
+    document.body.className = classes.join(" ");
+}
+    </script>
+</head>
+
+<body class="body" onload="addJsClass();">
+<div id="navigation">
+    <ul>
+        <li>
+            <div id="nav-summary" onmouseover="toggleNavSummary(false)" onmouseout="toggleNavSummary(true)">
+                <a href="../guide/index.html" class="button">Table of contents</a>
+
+                <div id="nav-summary-childs" style="display:none;">
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../guide/introduction.html"><strong>1</strong><span>Introduction</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../guide/gettingStarted.html"><strong>2</strong><span>Getting Started</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../guide/generalUsage.html"><strong>3</strong><span>General Usage</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../guide/configuration.html"><strong>4</strong><span>Configuration</span></a>
+                    </div>
+                    
+                </div>
+            </div>
+        </li>
+        <li class="separator selected">
+            <a id="ref-button" onclick="localToggle(); return false;" href="#">Quick Reference</a>
+        </li>
+    </ul>
+</div>
+<div id="header">
+    <div class="images clearfix">
+        
+        
+    </div>
+    <p>Automatically run Groovy based migration scripts</p>
+</div>
+
+
+<table id="colset" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+        <td id="col1">
+            <div id="main" class="corner-all">
+
+                
+                    <div class="toc-item prev-left"><a href="../guide/gettingStarted.html">&lt;&lt; <strong>2</strong><span>Getting Started</span></a></div>
+                
+
+                <span id='toggle-col1' class="toggle">(<a href="#" onclick="localToggle(); return false;">Quick Reference</a>)</span>
+
+                
+                    <div class="toc-item next-right"><a href="../guide/configuration.html"><strong>4</strong><span>Configuration</span> >></a></div>
+                
+
+
+                <div class="project">
+                    <h1>3 General Usage - Reference Documentation</h1>
+
+                    <p><strong>Authors:</strong> David A. Purcell</p>
+
+                    <p><strong>Version:</strong> 0.1.1</p>
+
+                    
+                </div>
+
+                
+                <div id="table-of-content">
+                    <h2>Table of Contents</h2>
+                    
+                    <div class="toc-item" style="margin-left:0px"><a href="#scriptStructure"><strong>3.1</strong><span>Script Structure</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0px"><a href="#scriptExecution"><strong>3.2</strong><span>Script Execution</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0px"><a href="#persistingScriptExecutionRecords"><strong>3.3</strong><span>Persisting Script Execution Records</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0px"><a href="#groovationsUi"><strong>3.4</strong><span>Groovations UI</span></a>
+                    </div>
+                    
+                </div>
+                
+
+                
+
+<h1 id="generalUsage">3 General Usage</h1>
+
+
+
+<h2 id="scriptStructure">3.1 Script Structure</h2>
+There is no required structure for individual migration scripts; any executable Groovy script will work!
+Each script has access to all the classes that can be loaded by the <code>grailsApplication</code> classloader.
+The following variables are available for use in migration scripts:
+<ul class="star">
+<li><code>ctx</code> - The main Spring <a href="http://docs.spring.io/spring/docs/3.0.x/javadoc-api/org/springframework/context/ApplicationContext.html" target="blank">ApplicationContext</a></li>
+<li><code>grailsApplication</code> - The <a href="http://grails.org/doc/latest/api/org/codehaus/groovy/grails/commons/GrailsApplication.html" target="blank">GrailsApplication</a> instance</li>
+<li><code>config</code> - The Grails configuration</li>
+<li><code>log</code> - The <code>groovations</code> <a href="http://www.slf4j.org/api/org/slf4j/Logger.html" target="blank">Slf4j</a> Logger</li>
+</ul><p class="paragraph"/>Ideally, migration scripts should be safely re-runnable.
+Designing your scripts for re-runnability makes it easier to deal with unexpected errors during execution.
+
+
+<h2 id="scriptExecution">3.2 Script Execution</h2>
+The <code>resourcePath</code> of a script is the file path of the script resource, relative to the grails project directory.
+The execution order of the scripts is determined using the <code>resourcePaths</code> of the the scripts.
+Scripts are sorted lexicographically by <code>resourcePath</code> and executed in the sorted order.
+Users of the plugin are free to decide upon a directory and filename convention to obtain the desired execution order.<p class="paragraph"/>Upon request, the plugin asynchronously executes all pending migration scripts in order.<p class="paragraph"/>Should an exception occur during the execution of a migration script, the plugin will <strong class="bold">not</strong> execute the remaining pending migrations.
+The plugin catches exceptions from migration scripts and logs them at the <code>error</code> level.
+
+
+<h2 id="persistingScriptExecutionRecords">3.3 Persisting Script Execution Records</h2>
+A persistent data store is required for tracking what scripts have been executed and if a script execution job is running.<p class="paragraph"/>The plugin comes with built in support for persisting to a <a href="http://www.mongodb.org" target="blank">MongoDB</a> database.<p class="paragraph"/>If you want to use a different persistence method, you could implement the <a href="../gapi/com/commercehub/grails/groovations/ScriptExecutionRepository.html" class="api">ScriptExecutionRepository</a>
+and <a href="../gapi/com/commercehub/grails/groovations/ScriptExecutionJobRepository.html" class="api">ScriptExecutionJobRepository</a> interfaces and create
+overriding spring beans to make the plugin use your implementation classes.<p class="paragraph"/><blockquote class="warning">
+Though this method should work in theory, it has not yet been tested.
+</blockquote>
+
+
+<h2 id="groovationsUi">3.4 Groovations UI</h2>
+The plugin adds the <code>GroovationsController</code> to your application.<p class="paragraph"/>The <code>index</code> action of this controller renders a simple page with the following features:
+<ul class="star">
+<li>A table that lists all pending migrations in the order that they will be executed. Just above this table is an 'Execute' link that will cause all pending migrations to be executed asynchronously.</li>
+<li>A paged table that lists all previously executed migrations sorted by most recent execution date.</li>
+</ul><p class="paragraph"/>
+
+
+                <div style="clear:both;margin-top:15px;"></div>
+                
+                    <div class="toc-item prev-left"><a href="../guide/gettingStarted.html">&lt;&lt; <strong>2</strong><span>Getting Started</span></a></div>
+                
+                    <div class="toc-item next-right"><a href="../guide/configuration.html"><strong>4</strong><span>Configuration</span> >></a></div>
+                
+                <div style="clear:both"></div>
+            </div>
+        </td>
+        <td id="col2">
+            <div class="local clearfix">
+                <div class="local-title">
+                    <a href="../guide/index.html" target="mainFrame">Quick Reference</a>
+                    <span class="toggle">(<a href="#" onclick="localToggle(); return false;">hide</a>)</span>
+                </div>
+                <div class="menu">
+                    
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<div id="footer">
+    
+    
+</div>
+
+<script type="text/javascript" src="../js/docs.js"></script>
+
+</body>
+</html>
