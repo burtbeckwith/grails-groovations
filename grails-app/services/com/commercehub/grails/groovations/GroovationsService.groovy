@@ -2,7 +2,6 @@ package com.commercehub.grails.groovations
 
 import groovy.io.FileType
 import groovy.time.TimeCategory
-import groovy.ui.SystemOutputInterceptor
 import groovy.util.logging.Slf4j
 import org.codehaus.groovy.grails.io.support.FileSystemResource
 import org.slf4j.Logger
@@ -123,12 +122,8 @@ class GroovationsService {
     }
 
     private ScriptEvaluation evaluate(File scriptFile) {
-        def output = new StringBuilder()
-        def systemOutInterceptor = createInterceptor(output)
-        systemOutInterceptor.start()
-
         def evaluation = new ScriptEvaluation()
-        Date startDate = new Date()
+        def startDate = new Date()
 
         try {
             def binding = createBinding()
@@ -140,9 +135,7 @@ class GroovationsService {
         }
 
         evaluation.duration = TimeCategory.minus(new Date(), startDate)
-        systemOutInterceptor.stop()
 
-        evaluation.output = output.toString()
         return evaluation
     }
 
@@ -153,13 +146,6 @@ class GroovationsService {
             config: grailsApplication.config,
             log: SCRIPT_LOGGER
         ])
-    }
-
-    private static SystemOutputInterceptor createInterceptor(StringBuilder output) {
-        return new SystemOutputInterceptor({ String str ->
-            output.append(str)
-            return false
-        })
     }
 
     @PreDestroy

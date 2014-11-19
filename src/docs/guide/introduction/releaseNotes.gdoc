@@ -1,5 +1,10 @@
 Below is the history of Groovations plugin releases.
 
+h4. 0.1.2 (Nov 19th, 2014)
+    * Standard output is no longer captured during script execution.
+    * Updated plugin metadata.
+    * Fixed mistake in documentation.
+
 h4. 0.1.1 (Nov 13th, 2014)
     * Refactoring.  Improved documentation.
 

@@ -8,7 +8,6 @@ class ScriptEvaluation {
     Object result
     Throwable exception
     Duration duration
-    String output
 
     void setException(Throwable exception) {
         this.exception = GrailsUtil.deepSanitize(exception)

@@ -7,7 +7,7 @@ class GroovationsGrailsPlugin {
 
     private static final String DEFAULT_MIGRATIONS_ROOT_DIR = 'scripts/groovy-migrations'
 
-    def version = '0.1.1'
+    def version = '0.1.2'
 
     def grailsVersion = '2.2 > *'
 
@@ -24,15 +24,15 @@ class GroovationsGrailsPlugin {
             [name: 'David A. Purcell', email: 'dpurcell@commercehub.com'],
     ]
 
-    // TODO
-    def description = 'Automatically run Groovy based migration scripts.'
-    def organization = [name: 'CommerceHub', url: 'http://www.commercehub.com/']
-    // TODO
-    def documentation = ''
-    // TODO
-    def issueManagement = [system: 'GitHub', url: '']
-    // TODO
-    def scm = [url: '']
+    def description = 'Automatically run Groovy based migration scripts.\n' +
+            'Grails console scripts are powerful tools for performing data migrations, since they have access to business logic and domain classes. ' +
+            'Running these scripts manually means that sometimes these scripts do not get run on all environments and there is no visibility into what ' +
+            'scripts have been run or need to be run.\n\nThis plugin was created to automate the script execution process and provide visibility and consistency.'
+
+    def organization = [name: 'CommerceHub', url: 'http://www.commercehub.com']
+    def documentation = 'http://commercehub-oss.github.io/grails-groovations'
+    def issueManagement = [system: 'GitHub', url: 'https://github.com/commercehub-oss/grails-groovations/issues']
+    def scm = [url: 'https://github.com/commercehub-oss/grails-groovations']
     def license = 'APACHE'
 
     def doWithSpring = {
