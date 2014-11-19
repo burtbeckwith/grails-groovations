@@ -17,7 +17,7 @@ class GroovationsGrailsPlugin {
             'scripts/groovy-migrations/**'
     ]
 
-    def title = 'Groovations - Groovy Migrations Plugin'
+    def title = 'Groovations - The Groovy Migrations Plugin'
     def author = 'David A. Purcell'
     def authorEmail = 'dpurcell@commercehub.com'
     def developers = [
