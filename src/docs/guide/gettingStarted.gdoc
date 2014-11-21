@@ -5,7 +5,7 @@ Install the plugin by adding the following to your @BuildConfig.groovy@:
 {code}
 plugins {
     ...
-    compile ":groovations:${groovationsVersion}"
+    compile \":groovations:${groovationsVersion}\"
     ...
 }
 {code}
