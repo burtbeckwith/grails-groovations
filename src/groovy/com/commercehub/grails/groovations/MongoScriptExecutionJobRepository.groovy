@@ -7,7 +7,6 @@ import com.mongodb.DBObject
 import com.mongodb.Mongo
 
 import javax.annotation.PostConstruct
-import javax.annotation.Resource
 
 class MongoScriptExecutionJobRepository implements ScriptExecutionJobRepository {
 
@@ -17,7 +16,6 @@ class MongoScriptExecutionJobRepository implements ScriptExecutionJobRepository 
     private static final String FIELD_STATUS = 'status'
     private static final String FIELD_SCRIPT_RESOURCE_PATHS = 'scriptResourcePaths'
 
-    @Resource
     Mongo mongo
 
     String databaseName

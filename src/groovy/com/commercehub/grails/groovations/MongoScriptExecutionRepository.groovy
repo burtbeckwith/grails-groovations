@@ -8,7 +8,6 @@ import com.mongodb.DBObject
 import com.mongodb.Mongo
 
 import javax.annotation.PostConstruct
-import javax.annotation.Resource
 
 class MongoScriptExecutionRepository implements ScriptExecutionRepository {
 
@@ -18,7 +17,6 @@ class MongoScriptExecutionRepository implements ScriptExecutionRepository {
     private static final String FIELD_RESOURCE_PATH = 'resourcePath'
     private static final String FIELD_EXECUTION_DATE = 'executionDate'
 
-    @Resource
     Mongo mongo
 
     String databaseName

@@ -7,7 +7,7 @@ class GroovationsGrailsPlugin {
 
     private static final String DEFAULT_MIGRATIONS_ROOT_DIR = 'scripts/groovy-migrations'
 
-    def version = '0.1.2'
+    def version = '0.1.3'
 
     def grailsVersion = '2.2 > *'
 
