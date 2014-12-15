@@ -95,6 +95,11 @@ class GroovationsService {
 
     private List<FileSystemResource> getMigrationScriptResources() {
         def rootDir = new File(groovyMigrationsPluginConfig.migrationsRootDir)
+
+        if (!rootDir.exists()) {
+            return []
+        }
+
         List<File> migrationScriptFiles = []
 
         rootDir.eachFileRecurse(FileType.FILES) {
