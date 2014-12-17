@@ -2,7 +2,7 @@
                       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
     <head>
-        <title>Grails Groovations Plugin 0.1.4</title>
+        <title>Grails Groovations Plugin 0.1.5</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8" />
         <link rel="stylesheet" href="../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8" />
@@ -58,7 +58,7 @@ function addJsClass(el) {
                         <div class="project">
                             <h1>Grails Groovations Plugin - Reference Documentation</h1>
                             <p><strong>Authors:</strong> David A. Purcell</p>
-                            <p><strong>Version:</strong> 0.1.4</p>
+                            <p><strong>Version:</strong> 0.1.5</p>
                             
                         </div>
 
@@ -96,7 +96,10 @@ scripts have been run or need to be run.<p class="paragraph"/>This plugin was cr
 
 
 <h2 id="releaseNotes">1.1 Release Notes</h2>
-Below is the history of Groovations plugin releases.<p class="paragraph"/><h4>0.1.4 (Dec 15th, 2014)</h4>
+Below is the history of Groovations plugin releases.<p class="paragraph"/><h4>0.1.5 (Dec 17th, 2014)</h4>
+<ul class="star">
+<li>Migration scripts are now packaged in WAR files as classpath resources.</li>
+</ul><p class="paragraph"/><h4>0.1.4 (Dec 15th, 2014)</h4>
 <ul class="star">
 <li>Gracefully handle the case where the root migrations directory does not exist.</li>
 </ul><p class="paragraph"/><h4>0.1.3 (Dec 12th, 2014)</h4>
@@ -143,7 +146,7 @@ Designing your scripts for re-runnability makes it easier to deal with unexpecte
 
 
 <h2 id="scriptExecution">3.2 Script Execution</h2>
-The <code>resourcePath</code> of a script is the file path of the script resource, relative to the grails project directory.
+The <code>resourcePath</code> of a script is the file path of the script resource, relative to configured root directory.
 The execution order of the scripts is determined using the <code>resourcePaths</code> of the scripts.
 Scripts are sorted lexicographically by <code>resourcePath</code> and executed in the sorted order.
 Users of the plugin are free to decide upon a directory and filename convention to obtain the desired execution order.<p class="paragraph"/>Upon request, the plugin asynchronously executes all pending migration scripts in order.<p class="paragraph"/>Should an exception occur during the execution of a migration script, the plugin will <strong class="bold">not</strong> execute the remaining pending migrations.
