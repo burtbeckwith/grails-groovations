@@ -1,5 +1,8 @@
 Below is the history of Groovations plugin releases.
 
+h4. 0.1.6 (Dec 17th, 2014)
+    * Fixed packaging events using wrong default migration script directory.
+
 h4. 0.1.5 (Dec 17th, 2014)
     * Migration scripts are now packaged in WAR files as classpath resources.
 
