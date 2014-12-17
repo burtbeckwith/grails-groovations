@@ -5,9 +5,7 @@ import com.commercehub.grails.groovations.MongoScriptExecutionRepository
 @SuppressWarnings("GroovyUnusedDeclaration")
 class GroovationsGrailsPlugin {
 
-    private static final String DEFAULT_MIGRATIONS_ROOT_DIR = 'scripts/groovy-migrations'
-
-    def version = '0.1.4'
+    def version = '0.1.5'
 
     def grailsVersion = '2.2 > *'
 
@@ -36,7 +34,7 @@ class GroovationsGrailsPlugin {
     def license = 'APACHE'
 
     def doWithSpring = {
-        def rootDir = application.config?.grails?.groovations?.migrationsRootDir ?: DEFAULT_MIGRATIONS_ROOT_DIR
+        def rootDir = application.config?.grails?.groovations?.migrationsRootDir ?: GroovationsPluginConfig.DEFAULT_MIGRATIONS_ROOT_DIR
         groovyMigrationsPluginConfig(GroovationsPluginConfig) {
             migrationsRootDir = rootDir
         }

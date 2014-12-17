@@ -1,4 +1,4 @@
-The @resourcePath@ of a script is the file path of the script resource, relative to the grails project directory.
+The @resourcePath@ of a script is the file path of the script resource, relative to configured root directory.
 The execution order of the scripts is determined using the @resourcePaths@ of the scripts.
 Scripts are sorted lexicographically by @resourcePath@ and executed in the sorted order.
 Users of the plugin are free to decide upon a directory and filename convention to obtain the desired execution order.

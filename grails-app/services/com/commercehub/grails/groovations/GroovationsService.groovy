@@ -3,7 +3,7 @@ package com.commercehub.grails.groovations
 import groovy.io.FileType
 import groovy.time.TimeCategory
 import groovy.util.logging.Slf4j
-import org.codehaus.groovy.grails.io.support.FileSystemResource
+import org.codehaus.groovy.grails.io.support.ClassPathResource
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
@@ -53,10 +53,10 @@ class GroovationsService {
     }
 
     List<ScriptExecutionRecord> getScriptsPendingExecution() {
-        return getMigrationScriptResources().findAll {
-            !scriptExecutionRepository.getByResourcePath(it.path)
+        return getMigrationScriptResourcePaths().findAll {
+            !scriptExecutionRepository.getByResourcePath(it)
         }.collect {
-            new ScriptExecutionRecord(resourcePath: it.path)
+            new ScriptExecutionRecord(resourcePath: it)
         }
     }
 
@@ -93,8 +93,8 @@ class GroovationsService {
         return executedScripts
     }
 
-    private List<FileSystemResource> getMigrationScriptResources() {
-        def rootDir = new File(groovyMigrationsPluginConfig.migrationsRootDir)
+    private List<String> getMigrationScriptResourcePaths() {
+        def rootDir = new ClassPathResource(GroovationsPluginConfig.MIGRATIONS_RESOURCE_PATH).getFile()
 
         if (!rootDir.exists()) {
             return []
@@ -104,15 +104,16 @@ class GroovationsService {
 
         rootDir.eachFileRecurse(FileType.FILES) {
             if (it.name.endsWith(GROOVY_FILE_SUFFIX)) {
-                migrationScriptFiles << it
+                def relativeFile = new File(rootDir.toURI().relativize(it.toURI()).toString())
+                migrationScriptFiles << relativeFile
             }
         }
-        def migrationResources = migrationScriptFiles.collect{ new FileSystemResource(it) }.sort{ it.path }
+        def migrationResources = migrationScriptFiles*.path.sort()
         return migrationResources
     }
 
     private ScriptEvaluation executeScript(String resourcePath) {
-        def file = new File(resourcePath)
+        def file = new ClassPathResource("${GroovationsPluginConfig.MIGRATIONS_RESOURCE_PATH}/${resourcePath}").getFile()
         log.info("Started execution of Groovy script: ${resourcePath}")
         def evaluation = evaluate(file)
 
