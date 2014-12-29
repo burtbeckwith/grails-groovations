@@ -1,5 +1,7 @@
 package com.commercehub.grails.groovations
 
+import groovy.transform.CompileStatic
+
 import com.mongodb.BasicDBObject
 import com.mongodb.DB
 import com.mongodb.DBCollection
@@ -9,6 +11,7 @@ import com.mongodb.Mongo
 
 import javax.annotation.PostConstruct
 
+@CompileStatic
 class MongoScriptExecutionRepository implements ScriptExecutionRepository {
 
     private static final String COLLECTION_NAME = 'groovations'
@@ -27,14 +30,12 @@ class MongoScriptExecutionRepository implements ScriptExecutionRepository {
     @Lazy
     private DBCollection collection = db.getCollection(COLLECTION_NAME)
 
-    @Override
     void save(ScriptExecutionRecord record) {
         def dbObject = toDbObject(record)
         collection.save(dbObject)
         record.id = dbObject.get(FIELD_ID)
     }
 
-    @Override
     ScriptExecutionRecord getByResourcePath(String resourcePath) {
         def cursor = collection.find(new BasicDBObject([
                 (FIELD_RESOURCE_PATH): resourcePath
@@ -45,13 +46,11 @@ class MongoScriptExecutionRepository implements ScriptExecutionRepository {
         return null
     }
 
-    @Override
     List<ScriptExecutionRecord> getMostRecentByPage(int offset, int pageSize) {
         def cursor = queryByMostRecent()
-        return cursor.skip(offset).limit(pageSize).iterator().collect{ fromDbObject(it) }
+        return cursor.skip(offset).limit(pageSize).iterator().collect{ DBObject it -> fromDbObject(it) }
     }
 
-    @Override
     long countAll() {
         return collection.count()
     }
@@ -89,5 +88,4 @@ class MongoScriptExecutionRepository implements ScriptExecutionRepository {
                 new BasicDBObject([ unique: true ])
         )
     }
-
 }

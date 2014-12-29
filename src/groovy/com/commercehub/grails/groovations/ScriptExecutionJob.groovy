@@ -1,17 +1,17 @@
 package com.commercehub.grails.groovations
 
-class ScriptExecutionJob {
+import groovy.transform.CompileStatic
 
-    Object id
+@CompileStatic
+class ScriptExecutionJob {
+    def id
     JobStatus status = JobStatus.RUNNING
     Date createdDate = new Date()
     List<String> scriptResourcePaths = []
-
 }
 
+@CompileStatic
 enum JobStatus {
-
     RUNNING,
     COMPLETED
-
 }

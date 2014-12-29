@@ -1,5 +1,8 @@
 package com.commercehub.grails.groovations
 
+import groovy.transform.CompileStatic
+
+@CompileStatic
 interface ScriptExecutionRepository {
 
     void save(ScriptExecutionRecord record)
@@ -9,5 +12,4 @@ interface ScriptExecutionRepository {
     List<ScriptExecutionRecord> getMostRecentByPage(int offset, int pageSize)
 
     long countAll()
-
 }

@@ -2,16 +2,19 @@ package com.commercehub.grails.groovations
 
 import groovy.io.FileType
 import groovy.time.TimeCategory
+import groovy.transform.CompileStatic
 import groovy.util.logging.Slf4j
+
+import org.codehaus.groovy.grails.commons.GrailsApplication
 import org.codehaus.groovy.grails.io.support.ClassPathResource
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
 import javax.annotation.PreDestroy
-import javax.annotation.Resource
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
+@CompileStatic
 @Slf4j
 class GroovationsService {
 
@@ -19,17 +22,14 @@ class GroovationsService {
 
     private static final Logger SCRIPT_LOGGER = LoggerFactory.getLogger('groovations')
 
-    static def transactional = false
+    static transactional = false
 
-    def grailsApplication
+    GrailsApplication grailsApplication
 
-    @Resource
     GroovationsPluginConfig groovyMigrationsPluginConfig
 
-    @Resource
     ScriptExecutionRepository scriptExecutionRepository
 
-    @Resource
     ScriptExecutionJobRepository scriptExecutionJobRepository
 
     @Lazy
@@ -77,7 +77,7 @@ class GroovationsService {
         int migrationsExecuted = 0
         def executedScripts = []
 
-        for(def script : getScriptsPendingExecution()) {
+        for(script in getScriptsPendingExecution()) {
             def evaluation = executeScript(script.resourcePath)
             if (evaluation.exception) {
                 log.warn('Stopping migration executions due to exception.')
@@ -108,8 +108,7 @@ class GroovationsService {
                 migrationScriptFiles << relativeFile
             }
         }
-        def migrationResources = migrationScriptFiles*.path.sort()
-        return migrationResources
+        return migrationScriptFiles*.path.sort()
     }
 
     private ScriptEvaluation executeScript(String resourcePath) {
@@ -136,7 +135,7 @@ class GroovationsService {
             def groovyShell = new GroovyShell(grailsApplication.classLoader, binding)
             evaluation.result = groovyShell.evaluate(scriptFile)
         }
-        catch (Exception ex) {
+        catch (ex) {
             evaluation.exception = ex
         }
 
@@ -158,5 +157,4 @@ class GroovationsService {
     void preDestroy() {
         executorService.shutdown()
     }
-
 }

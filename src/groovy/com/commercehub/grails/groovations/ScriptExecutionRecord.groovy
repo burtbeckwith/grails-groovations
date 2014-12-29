@@ -1,9 +1,10 @@
 package com.commercehub.grails.groovations
 
-class ScriptExecutionRecord {
+import groovy.transform.CompileStatic
 
-    Object id
+@CompileStatic
+class ScriptExecutionRecord {
+    def id
     String resourcePath
     Date executionDate
-
 }

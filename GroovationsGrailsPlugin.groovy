@@ -10,22 +10,21 @@ class GroovationsGrailsPlugin {
     def grailsVersion = '2.2 > *'
 
     def pluginExcludes = [
-            'grails-app/views/error.gsp',
-            'grails-app/views/index.gsp',
-            'scripts/groovy-migrations/**'
+        'grails-app/views/index.gsp',
+        'scripts/groovy-migrations/**'
     ]
 
     def title = 'Groovations - The Groovy Migrations Plugin'
-    def author = 'David A. Purcell'
-    def authorEmail = 'dpurcell@commercehub.com'
     def developers = [
-            [name: 'David A. Purcell', email: 'dpurcell@commercehub.com'],
+        [name: 'David A. Purcell', email: 'dpurcell@commercehub.com'],
     ]
 
-    def description = 'Automatically run Groovy based migration scripts.\n' +
-            'Grails console scripts are powerful tools for performing data migrations, since they have access to business logic and domain classes. ' +
-            'Running these scripts manually means that sometimes these scripts do not get run on all environments and there is no visibility into what ' +
-            'scripts have been run or need to be run.\n\nThis plugin was created to automate the script execution process and provide visibility and consistency.'
+    def description = '''Automatically run Groovy based migration scripts.
+Grails console scripts are powerful tools for performing data migrations, since they have access to business logic and domain classes. \
+Running these scripts manually means that sometimes these scripts do not get run on all environments and there is no visibility into what \
+scripts have been run or need to be run.
+
+This plugin was created to automate the script execution process and provide visibility and consistency.'''
 
     def organization = [name: 'CommerceHub', url: 'http://www.commercehub.com']
     def documentation = 'http://commercehub-oss.github.io/grails-groovations'
@@ -35,6 +34,7 @@ class GroovationsGrailsPlugin {
 
     def doWithSpring = {
         def rootDir = application.config?.grails?.groovations?.migrationsRootDir ?: GroovationsPluginConfig.DEFAULT_MIGRATIONS_ROOT_DIR
+
         groovyMigrationsPluginConfig(GroovationsPluginConfig) {
             migrationsRootDir = rootDir
         }
@@ -60,5 +60,4 @@ class GroovationsGrailsPlugin {
             databaseName = dbName
         }
     }
-
 }

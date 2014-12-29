@@ -1,5 +1,7 @@
 package com.commercehub.grails.groovations
 
+import groovy.transform.CompileStatic
+
 import com.mongodb.BasicDBObject
 import com.mongodb.DB
 import com.mongodb.DBCollection
@@ -8,6 +10,7 @@ import com.mongodb.Mongo
 
 import javax.annotation.PostConstruct
 
+@CompileStatic
 class MongoScriptExecutionJobRepository implements ScriptExecutionJobRepository {
 
     private static final String COLLECTION_NAME = 'groovationsJobs'
@@ -26,19 +29,14 @@ class MongoScriptExecutionJobRepository implements ScriptExecutionJobRepository 
     @Lazy
     private DBCollection collection = db.getCollection(COLLECTION_NAME)
 
-    @Override
     void save(ScriptExecutionJob job) {
         def dbObject = toDbObject(job)
         collection.save(dbObject)
         job.id = dbObject.get(FIELD_ID)
     }
 
-    @Override
     boolean areJobsRunning() {
-        def runningJobsCount = collection.find(new BasicDBObject([
-                (FIELD_STATUS): JobStatus.RUNNING.name()
-        ])).count()
-        return runningJobsCount as boolean
+        collection.find(new BasicDBObject([(FIELD_STATUS): JobStatus.RUNNING.name()])).count()
     }
 
     private static DBObject toDbObject(ScriptExecutionJob job) {

@@ -10,17 +10,12 @@ class GroovationsController {
         int offset = params.int('offset', 0)
         int pageSize = params.int('max', DEFAULT_MIGRATIONS_PAGE_SIZE)
 
-        def pendingMigrations = groovationsService.getScriptsPendingExecution()
-        def executedMigrations = groovationsService.getExecutedScripts(offset, pageSize)
-        def numExecutedMigrations = groovationsService.getCountOfExecutedScripts()
-        def areMigrationsExecuting = groovationsService.areMigrationsExecuting()
-
-        return [
-                pendingMigrations: pendingMigrations,
-                executedMigrations: executedMigrations,
-                pageSize: pageSize,
-                numExecutedMigrations: numExecutedMigrations,
-                areMigrationsExecuting: areMigrationsExecuting
+        [
+            pendingMigrations: groovationsService.getScriptsPendingExecution(),
+            executedMigrations: groovationsService.getExecutedScripts(offset, pageSize),
+            pageSize: pageSize,
+            numExecutedMigrations: groovationsService.getCountOfExecutedScripts(),
+            areMigrationsExecuting: groovationsService.areMigrationsExecuting()
         ]
     }
 
@@ -29,5 +24,4 @@ class GroovationsController {
         flash.message = 'Ran Groovations'
         redirect(action: 'index')
     }
-
 }
